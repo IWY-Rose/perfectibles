@@ -1,0 +1,78 @@
+.detalle-page {
+    display: flex;
+    flex-direction: column; /* Stack title and container vertically */
+    height: 100vh; /* Full height of the viewport */
+  }
+
+  .encabezado-container {
+    display: flex;
+    flex-direction: row; /* Stack horizontally */
+    align-items: top; /* Center items horizontally */
+    margin-top: 70px; /* Remove margin-top to avoid extra space */
+    padding: 20px; /* Add padding for spacing */
+    /*flex-grow: 1; /* Allow the container to grow and fill available space */
+    /*overflow-y: auto; /* Enable scrolling if content exceeds the height */
+  }
+
+  .titulo-container {
+    display: flex;
+    flex-direction: column; /* Stack noticias vertically */
+    /*align-items: center; /* Center items horizontally */
+    margin-top: 0; /* Remove margin-top to avoid extra space */
+    margin-right: 0;
+    margin-left: 60px;
+    padding: 20px; /* Add padding for spacing */
+    /*width: 100%;
+    /*flex-grow: 1; /* Allow the container to grow and fill available space */
+    /*overflow-y: auto; /* Enable scrolling if content exceeds the height */
+  }
+
+.detalle-title {
+    font-size: 40px; /* Adjust size as needed */
+    color: #571094; /* Soft purple */
+    /*margin-bottom: 10px; /* Space below the title */
+    text-align: left; /* Align the title to the left */
+    width: 100%; /* Ensure it takes the full width for left alignment */
+  }
+
+  .detalle-bajada {
+    font-size: 18px;
+    color: #333; /* Darker text for better readability */
+    text-align: left;
+    /*margin: 10px 0;*/
+  }
+
+  .detalle-cuerpo {
+    font-size: 18px;
+    color: #000000; /* Darker text for better readability */
+    margin: 10px 0;
+  }
+  
+  .detalle-fecha {
+    display: block;
+    font-size: 14px; /* Adjust size as needed */
+    color: #888; /* Lighter color for date */
+    /*text-align: left; /* Align date to the right */
+    /*margin-left: auto;
+    margin-right: auto;*/
+    width: fit-content; 
+    /*margin-top: 10px; /* Space above the date */
+    position: fixed;
+    /*width: auto;*/
+    margin: 5% auto; /* Only centers horizontally not vertically! */
+    left: 0;
+    right: 0;
+  } 
+
+  .image-wrapper {
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center the image horizontally */
+    margin: 10px 0; /* Add margin for spacing */
+    width: 100%;
+  }
+  
+  .detalle-image {
+    max-width: 200px; /* Set a fixed width for the image */
+    height: 200px;
+    border-radius: 5px; /* Rounded image corners */
+  }

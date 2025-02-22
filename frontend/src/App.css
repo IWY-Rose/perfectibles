@@ -1,0 +1,105 @@
+.App {
+  text-align: center;
+  background-color: #da80fd; /* Soft purple background */
+  color: #D5C0D3;            /* Soft pink text */
+  height: 100vh;             /* Full height of the viewport */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Add this to fill the entire background */
+body {
+  margin: 0; /* Remove default margin */
+  background-color: #da80fd; /* Set the same background color */
+  min-height: 100vh; /* Ensure it covers the full height */
+}
+
+/* Top bar styling */
+.top-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  background-color: #D5C0D3; /* Soft pink */
+  width: 100%;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+}
+
+/* Logo styling */
+.logo {
+  height: 100px; /* Adjust size as needed */
+  width: auto;
+}
+
+/* Navigation tabs styling */
+.nav-tabs {
+  display: flex;
+  font-size: 25px;
+  gap: 20px; /* Space between tabs */
+  align-items: flex-end;
+  margin-bottom: 0px; 
+  margin-right: 630px;
+  /*margin-left: auto;*/
+}
+
+.nav-tabs a {
+  text-decoration: none;
+  color: #3d0c68; /* Soft purple */
+  font-weight: bold;
+  border-top: 2px solid #D5C0D3; /* Add top border */ 
+  border-left: 2px solid #D5C0D3; /* Add left border */
+  border-right: 2px solid #D5C0D3; /* Add right border */
+  padding: 5px; /* Add padding for better spacing */
+}
+
+.nav-tabs a:hover {
+  color: #c087e1; /* Slightly lighter purple on hover */
+  border-color: #c087e1; /* Change border color on hover */
+}
+
+
+/* General page styling */
+main {
+  margin-top: 100px; /* Adds space for the fixed top bar */
+  text-align: center;
+}
+
+/* Styling for each page content */
+h1 {
+  font-size: 36px;
+  color: #D5C0D3; /* Soft purple */
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 24px;
+  color: #D5C0D3; /* Soft pink */
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+
+/* Styles for the Instagram button */
+.instagram-button {
+  color: #3d0c68; /* Soft purple color for the icon */
+  font-size: 50px; /* Adjust the size as needed */
+  margin-left: 15px; /* Push it to the far right of the top bar */
+  text-decoration: none;
+  position: absolute;
+  top: 10px; /* Adjust this value to fine-tune vertical alignment */
+  right: 30px;
+  padding: 5px;
+}
+
+.instagram-button:hover {
+  color: #a053c6; /* Darker shade on hover */
+}
+
+/* Add this to frontend/src/App.css */
+.hidden {
+  display: none; /* Hides the navigation bar */
+}

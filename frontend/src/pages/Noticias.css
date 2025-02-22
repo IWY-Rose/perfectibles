@@ -1,0 +1,72 @@
+.noticias-page {
+  display: flex;
+  flex-direction: column; /* Stack title and container vertically */
+  height: 100vh; /* Full height of the viewport */
+}
+
+.noticias-title {
+  font-size: 36px; /* Adjust size as needed */
+  color: #3d0c68; /* Soft purple */
+  /*margin: 100px 0; /* Space above and below the title */
+  margin-top: 120px;
+  margin-bottom: 50px;
+  text-align: left; /* Align the title to the left */
+  width: 100%; /* Ensure it takes the full width for left alignment */
+}
+
+.noticias-container {
+  display: flex;
+  flex-direction: column; /* Stack noticias vertically */
+  align-items: center; /* Center items horizontally */
+  margin-top: 0; /* Remove margin-top to avoid extra space */
+  padding: 20px; /* Add padding for spacing */
+  flex-grow: 1; /* Allow the container to grow and fill available space */
+  /*overflow-y: auto; /* Enable scrolling if content exceeds the height */
+}
+
+.noticia-card {
+  background-color: #f9f9f9; /* Light background for cards */
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 15px;
+  margin: 10px 0;
+  width: 1000px; /* Set width to 1000px */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  display: flex; /* Use flexbox for layout */
+  /*flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+}
+
+.image-wrapper {
+  display: flex; /* Use flexbox for centering */
+  justify-content: center; /* Center the image horizontally */
+  margin: 10px 0; /* Add margin for spacing */
+}
+
+.noticia-image {
+  max-width: 200px; /* Set a fixed width for the image */
+  height: 200px;
+  border-radius: 5px; /* Rounded image corners */
+}
+
+.noticia-title {
+  font-size: 24px; /* Adjust size as needed */
+  color: #3d0c68; /* Soft purple */
+  margin-bottom: 10px; /* Space below the title */
+  text-align: left; /* Align the title to the left */
+  width: 100%; /* Ensure it takes the full width for left alignment */
+}
+
+.noticia-bajada, .noticia-cuerpo {
+  font-size: 18px;
+  color: #333; /* Darker text for better readability */
+  margin: 10px 0;
+}
+
+.noticia-fecha {
+  font-size: 14px; /* Adjust size as needed */
+  color: #888; /* Lighter color for date */
+  text-align: right; /* Align date to the right */
+  width: 100%; /* Ensure it takes the full width for right alignment */
+  margin-top: 10px; /* Space above the date */
+} 
