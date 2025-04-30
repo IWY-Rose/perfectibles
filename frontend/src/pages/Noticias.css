@@ -28,33 +28,46 @@
   background-color: #f9f9f9; /* Light background for cards */
   border: 1px solid #ddd; /* Light border */
   border-radius: 8px; /* Rounded corners */
-  padding: 15px;
+  padding: 0; /* Remove padding, apply to inner containers if needed */
   margin: 10px 0;
-  width: 1000px; /* Set width to 1000px */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  display: flex; /* Use flexbox for layout */
-  /*flex-direction: column; /* Stack items vertically */
-  align-items: center; /* Center items horizontally */
+  width: 1000px;
+  max-width: 95%; /* Ensure it doesn't get too wide on large screens */
+  /* box-shadow: 0 6px 18px 3px rgba(0, 0, 0, 0.25); */ /* Old shadow */
+  box-shadow: 0 10px 30px 8px rgba(0, 0, 0, 0.35); /* A lot stronger shadow */
+  display: flex; /* Needed for link wrapper to fill */
+  overflow: hidden; /* Helps contain children */
 }
 
 .image-wrapper {
-  display: flex; /* Use flexbox for centering */
-  justify-content: center; /* Center the image horizontally */
-  margin: 10px 0; /* Add margin for spacing */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0; /* Remove previous margin */
+  width: 100%; /* Fill container width */
+  height: 100%; /* Fill container height */
+  max-height: 120px; /* Example max height for the image area */
 }
 
 .noticia-image {
-  max-width: 200px; /* Set a fixed width for the image */
-  height: 200px;
-  border-radius: 5px; /* Rounded image corners */
+  display: block;
+  max-width: 100%;
+  max-height: 100%; /* Ensure image fits within wrapper's max-height */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: contain; /* Fit image within bounds */
+  border-radius: 5px;
 }
 
 .noticia-title {
-  font-size: 24px; /* Adjust size as needed */
-  color: #3d0c68; /* Soft purple */
-  margin-bottom: 10px; /* Space below the title */
-  text-align: left; /* Align the title to the left */
-  width: 100%; /* Ensure it takes the full width for left alignment */
+  font-size: 18px; /* Adjust as needed */
+  color: #3d0c68;
+  margin: 0; /* Remove default margins */
+  width: 100%;
+   /* Optional: Prevent long titles from breaking layout */
+  white-space: normal; /* Allow wrapping */
+  /* or use ellipsis for single line: */
+  /* white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; */
 }
 
 .noticia-bajada, .noticia-cuerpo {
@@ -64,9 +77,156 @@
 }
 
 .noticia-fecha {
-  font-size: 14px; /* Adjust size as needed */
-  color: #888; /* Lighter color for date */
-  text-align: right; /* Align date to the right */
-  width: 100%; /* Ensure it takes the full width for right alignment */
-  margin-top: 10px; /* Space above the date */
+  font-size: 13px;
+  color: #888;
+  margin: 0; /* Remove default margins */
+  text-align: right;
+  width: 100%;
+  margin-top: auto; /* Push to bottom of container */
+}
+
+.noticia-link-wrapper {
+  display: flex;
+  align-items: stretch; /* Make containers equal height */
+  justify-content: space-between; /* Distribute space */
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* --- Equal Size Containers within Regular Cards --- */
+.noticia-item-container {
+  flex: 1; /* Distribute available space equally */
+  /* Alternatively, use fixed percentage: width: 33.33%; */
+  padding: 15px; /* Add padding inside each container */
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  justify-content: center; /* Center content vertically */
+  box-sizing: border-box; /* Include padding in width calculation */
+  overflow: hidden; /* Prevent content spillover */
+  position: relative; /* For potential absolute positioning of children */
+}
+
+/* Specific container alignment/styling */
+.noticia-title-container {
+  align-items: flex-start; /* Align title to the top */
+  justify-content: flex-start;
+}
+
+.noticia-image-container {
+  align-items: center; /* Center image horizontally */
+}
+
+.noticia-date-container {
+  align-items: flex-end; /* Align date content to the right */
+   justify-content: flex-end; /* Align date to the bottom */
+}
+
+/* Remove old rules that might conflict */
+/* .noticia-card .noticia-title, .noticia-card .noticia-fecha, .noticia-card .image-wrapper */
+/* (Check if any old specific rules need removal or adjustment) */
+
+/* Remove old link wrapper layout styles if they conflict */
+.noticia-link-wrapper .noticia-content-wrapper, /* This class is removed now */
+.noticia-link-wrapper .noticia-title,
+.noticia-link-wrapper .image-wrapper,
+.noticia-link-wrapper .noticia-fecha {
+    /* Reset properties that might interfere with new flex layout */
+    flex-grow: initial;
+    flex-shrink: initial;
+    margin: initial;
+    /* Add other resets if needed */
+}
+
+/* --- Featured News Card Styles --- */
+.featured-noticia-card {
+  border-radius: 10px;
+  margin: 0 auto 40px auto;
+  /* width: 90%; */ /* Old width */
+  width: 100%; /* Set width to 100% */
+  max-width: 1200px; /* Keep max-width constraint */
+  /* box-shadow: 0 12px 35px 5px rgba(0, 0, 0, 0.3); */ /* Old shadow */
+  box-shadow: 0 20px 50px 10px rgba(0, 0, 0, 0.9); /* A lot stronger shadow */
+  overflow: hidden;
+  position: relative;
+  min-height: 400px;
+  display: flex;
+}
+
+.featured-noticia-link {
+  flex-grow: 1; /* Make link fill the card */
+  display: flex; /* Use flexbox for centering title */
+  flex-direction: column;
+  justify-content: center; /* Center title vertically */
+  align-items: center; /* Center title horizontally */
+  position: relative; /* Positioning context for children */
+  padding: 20px; /* Add some padding */
+  text-decoration: none;
+  color: white; /* Default text color for overlay content */
+  background-size: cover; /* Cover the entire area */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat;
+  z-index: 1; /* Ensure link content is above the base card but below absolute elements if needed */
+}
+
+/* Optional Overlay for readability */
+.featured-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
+  z-index: 2; /* Place overlay above background, below text */
+  border-radius: 10px; /* Inherit border radius from parent */
+}
+
+/* Container for the Title */
+.featured-title-container {
+  width: 80%; /* Use 80% of the card width */
+  text-align: center; /* Center the text inside */
+  z-index: 3; /* Ensure title is above the overlay */
+  position: relative; /* Needed if mixing with absolute positioning */
+  margin-bottom: 20px; /* Add space below title if date is also centered initially */
+}
+
+.featured-noticia-title {
+  font-size: 32px; /* Adjust size as needed */
+  color: #ffffff; /* White color for contrast */
+  margin: 0; /* Reset margin */
+  line-height: 1.3;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Add shadow for readability */
+}
+
+/* Container for the Date */
+.featured-date-container {
+  position: absolute; /* Position relative to the link wrapper */
+  bottom: 15px; /* Position at the bottom */
+  right: 20px; /* Position at the right */
+  z-index: 3; /* Ensure date is above the overlay */
+}
+
+.featured-noticia-fecha {
+  font-size: 14px;
+  color: #f0f0f0; /* Light color for contrast */
+  margin: 0; /* Reset margin */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); /* Add shadow for readability */
+}
+
+/* Remove or adjust old conflicting styles */
+.featured-image-wrapper,
+.featured-noticia-image,
+.featured-content {
+  /* These classes are no longer used in the featured card structure */
+  /* or their styles need complete removal/override */
+  display: none; /* Or simply remove these rules */
+}
+
+/* Ensure old .featured-noticia-fecha doesn't conflict with new absolute positioning */
+.featured-noticia-fecha {
+  margin-top: initial; /* Remove margin-top: auto */
+  /* Make sure font-size and color are specifically set here if overriding previous */
+  font-size: 14px;
+  color: #f0f0f0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 } 

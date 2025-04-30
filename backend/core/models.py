@@ -18,6 +18,7 @@ class Noticias(models.Model):
         blank=True,
         null=True,
     )
+    is_featured = models.BooleanField(default=False, help_text="Mark this noticia as the featured one (only one can be featured).")
 
     def __str__(self):
         return self.titulo
@@ -25,6 +26,11 @@ class Noticias(models.Model):
     def save(self, *args, **kwargs):
         logger.info(f'Attempting to save noticia: {self.titulo}')
         try:
+            # Ensure only one item is featured
+            if self.is_featured:
+                # Unset is_featured for all other instances
+                Noticias.objects.filter(is_featured=True).exclude(pk=self.pk).update(is_featured=False)
+
             if self.existing_image and not self.imagen:
                 # If an existing image is selected, set the imagen field to the existing image's name
                 self.imagen.name = os.path.basename(self.existing_image)
