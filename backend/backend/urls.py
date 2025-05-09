@@ -19,8 +19,7 @@ from django.urls import path
 from core import views
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path
-from core.views import get_noticia  # Import your view for fetching a single noticia
+from core.views import get_noticia, get_featured_noticias
 
 
 urlpatterns = [
@@ -28,7 +27,8 @@ urlpatterns = [
     #path('', views.home, name='home'),
     path('historia/', views.historia, name='historia'),
     path('noticias/', views.noticias, name='noticias'),
-    path('noticias/<int:id>/', get_noticia, name='noticia_detail'),  # Add this line
+    path('featured-noticias/', views.get_featured_noticias, name='featured_noticias'),
+    path('noticias/<int:id>/', get_noticia, name='noticia_detail'),
     path('contacto/', views.contacto, name='contacto'),
     path('', views.frontend, name='frontend'),
 ]

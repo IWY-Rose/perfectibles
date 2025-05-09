@@ -1,39 +1,82 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import './Noticias.css';
 
+const AUTO_SLIDE_INTERVAL = 7000; // 7 seconds
+
 function Noticias() {
-  const [featuredNoticia, setFeaturedNoticia] = useState(null);
+  const [allFeaturedNoticiasData, setAllFeaturedNoticiasData] = useState([]); // Stores the direct API response
+  const [currentFeaturedIndex, setCurrentFeaturedIndex] = useState(0);
+  // currentFeaturedItem will now be the 'noticia' object from allFeaturedNoticiasData[currentFeaturedIndex].noticia
+  const [currentDisplayNoticia, setCurrentDisplayNoticia] = useState(null);
   const [otherNoticias, setOtherNoticias] = useState([]);
 
   useEffect(() => {
-    const fetchNoticias = async () => {
+    const fetchFeaturedNoticias = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/featured-noticias/'); // New endpoint
+        if (!response.ok) {
+          throw new Error(`HTTP error fetching featured! status: ${response.status}`);
+        }
+        const featuredData = await response.json(); // Array of { noticia: {...}, added_datetime: ..., custom_order: ... }
+        
+        setAllFeaturedNoticiasData(featuredData);
+        if (featuredData.length > 0 && featuredData[0].noticia) {
+          setCurrentDisplayNoticia(featuredData[0].noticia);
+          setCurrentFeaturedIndex(0);
+        } else {
+          setCurrentDisplayNoticia(null);
+        }
+      } catch (error) {
+        console.error('Error fetching featured noticias:', error);
+        setCurrentDisplayNoticia(null);
+        setAllFeaturedNoticiasData([]);
+      }
+    };
+
+    const fetchAllNoticiasList = async () => {
       try {
         const response = await fetch('http://127.0.0.1:8000/noticias/');
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          throw new Error(`HTTP error fetching all news! status: ${response.status}`);
         }
-        const data = await response.json();
-
-        const featured = data.find(noticia => noticia.is_featured === true);
-        setFeaturedNoticia(featured || null);
-
-        const sortedAllNoticias = data.sort((a, b) => {
-          const dateA = new Date(a.datetime);
-          const dateB = new Date(b.datetime);
-          return dateB - dateA;
-        });
-
-        setOtherNoticias(sortedAllNoticias);
+        const data = await response.json(); // Array of Noticia objects
+        // Already sorted by -datetime from backend if view is set up that way
+        setOtherNoticias(data);
       } catch (error) {
-        console.error('Error fetching noticias:', error);
-        setFeaturedNoticia(null);
+        console.error('Error fetching all noticias list:', error);
         setOtherNoticias([]);
       }
     };
 
-    fetchNoticias();
+    fetchFeaturedNoticias();
+    fetchAllNoticiasList();
   }, []);
+
+  const goToNextFeatured = useCallback(() => {
+    if (allFeaturedNoticiasData.length === 0) return;
+    const nextIndex = (currentFeaturedIndex + 1) % allFeaturedNoticiasData.length;
+    setCurrentFeaturedIndex(nextIndex);
+    if (allFeaturedNoticiasData[nextIndex] && allFeaturedNoticiasData[nextIndex].noticia) {
+      setCurrentDisplayNoticia(allFeaturedNoticiasData[nextIndex].noticia);
+    }
+  }, [currentFeaturedIndex, allFeaturedNoticiasData]);
+
+  const goToPrevFeatured = () => {
+    if (allFeaturedNoticiasData.length === 0) return;
+    const prevIndex = (currentFeaturedIndex - 1 + allFeaturedNoticiasData.length) % allFeaturedNoticiasData.length;
+    setCurrentFeaturedIndex(prevIndex);
+    if (allFeaturedNoticiasData[prevIndex] && allFeaturedNoticiasData[prevIndex].noticia) {
+      setCurrentDisplayNoticia(allFeaturedNoticiasData[prevIndex].noticia);
+    }
+  };
+
+  useEffect(() => {
+    if (allFeaturedNoticiasData.length > 1) {
+      const timer = setInterval(goToNextFeatured, AUTO_SLIDE_INTERVAL);
+      return () => clearInterval(timer);
+    }
+  }, [allFeaturedNoticiasData, goToNextFeatured]);
 
   // --- Date Formatting Options ---
   const dateOptions = {
@@ -56,24 +99,32 @@ function Noticias() {
     <div className="noticias-page">
       <h1 className="noticias-title">Noticias Perfectibles</h1>
 
-      {featuredNoticia && (
+      {/* Display the currentDisplayNoticia which is the 'noticia' object */}
+      {currentDisplayNoticia && (
         <div className="featured-noticia-card">
           <Link
-            to={`/noticia/${featuredNoticia.id}`}
+            to={`/noticia/${currentDisplayNoticia.id}`} // Use the actual Noticia ID
             className="featured-noticia-link"
-            style={{ backgroundImage: `url(http://127.0.0.1:8000/assets/${featuredNoticia.imagen})` }}
+            style={{ backgroundImage: `url(http://127.0.0.1:8000/assets/${currentDisplayNoticia.imagen})` }}
           >
             <div className="featured-title-container">
-              <h2 className="featured-noticia-title">{featuredNoticia.titulo}</h2>
+              <h2 className="featured-noticia-title">{currentDisplayNoticia.titulo}</h2>
             </div>
             <div className="featured-date-container">
-              {/* Format featured date: Date only */}
+              {/* Displaying the original Noticia's datetime, or you can use allFeaturedNoticiasData[currentFeaturedIndex].added_datetime */}
               <p className="featured-noticia-fecha">
-                {new Date(featuredNoticia.datetime).toLocaleString(undefined, dateOptions)}
+                {new Date(currentDisplayNoticia.datetime).toLocaleString(undefined, dateOptions)}
               </p>
             </div>
             <div className="featured-overlay"></div>
           </Link>
+
+          {allFeaturedNoticiasData.length > 1 && (
+            <>
+              <button onClick={goToPrevFeatured} className="carousel-arrow prev-arrow" aria-label="Previous slide">&#10094;</button>
+              <button onClick={goToNextFeatured} className="carousel-arrow next-arrow" aria-label="Next slide">&#10095;</button>
+            </>
+          )}
         </div>
       )}
 

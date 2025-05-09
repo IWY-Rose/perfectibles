@@ -142,13 +142,11 @@
 .featured-noticia-card {
   border-radius: 10px;
   margin: 0 auto 40px auto;
-  /* width: 90%; */ /* Old width */
-  width: 100%; /* Set width to 100% */
-  max-width: 1200px; /* Keep max-width constraint */
-  /* box-shadow: 0 12px 35px 5px rgba(0, 0, 0, 0.3); */ /* Old shadow */
-  box-shadow: 0 20px 50px 10px rgba(0, 0, 0, 0.9); /* A lot stronger shadow */
+  width: 100%;
+  max-width: 1200px;
+  box-shadow: 0 20px 50px 10px rgba(0, 0, 0, 0.4);
   overflow: hidden;
-  position: relative;
+  position: relative; /* This is important for positioning arrows */
   min-height: 400px;
   display: flex;
 }
@@ -229,4 +227,33 @@
   font-size: 14px;
   color: #f0f0f0;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* --- Carousel Arrow Styles --- */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent background */
+  color: white;
+  border: none;
+  font-size: 28px; /* Larger arrow icon */
+  padding: 10px 15px;
+  cursor: pointer;
+  z-index: 5; /* Ensure arrows are above the link's overlay */
+  border-radius: 50%; /* Circular arrows */
+  line-height: 1; /* Ensure text is centered in button */
+  transition: background-color 0.3s ease;
+}
+
+.carousel-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.6); /* Darker on hover */
+}
+
+.prev-arrow {
+  left: 15px; /* Adjust as needed */
+}
+
+.next-arrow {
+  right: 15px; /* Adjust as needed */
 } 

@@ -2,6 +2,12 @@
     display: flex;
     flex-direction: column; /* Stack title and container vertically */
     height: 100vh; /* Full height of the viewport */
+    align-items: center; /* Center content horizontally */
+    font-family: Arial, sans-serif; /* Example font */
+    color: #333;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #f9f9f9; /* Light background for the page */
   }
 
   .encabezado-container {
@@ -46,6 +52,7 @@
     font-size: 18px;
     color: #000000; /* Darker text for better readability */
     margin: 10px 0;
+    white-space: pre-line; /* This will preserve newlines */
   }
   
   .detalle-fecha {
@@ -76,3 +83,203 @@
     height: 200px;
     border-radius: 5px; /* Rounded image corners */
   }
+
+/* General Page Setup */
+.detalle-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  font-family: Arial, sans-serif; /* Example font */
+  color: #333;
+  padding: 20px;
+  box-sizing: border-box;
+  min-height: 100vh;
+  background-color: #f9f9f9; /* Light background for the page */
+}
+
+.error-page, .loading-page {
+  text-align: center;
+  font-size: 1.5em;
+  margin-top: 50px;
+}
+
+/* Header: Title, Bajada, Meta (Date) */
+.detalle-header {
+  width: 100%;
+  max-width: 800px; /* Max width for content */
+  text-align: center; /* Center header text */
+  margin-bottom: 30px;
+}
+
+.detalle-title {
+  font-size: 2.5em; /* Larger title */
+  color: #571094; /* Existing purple */
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.detalle-bajada {
+  font-size: 1.2em;
+  color: #555;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.detalle-meta {
+  font-size: 0.9em;
+  color: #777;
+}
+
+/* Main Image Container */
+.main-image-container {
+  width: 100%;
+  max-width: 1000px; /* Main image can be wider */
+  margin-bottom: 30px;
+  text-align: center; /* Center the image if it's smaller than container */
+}
+
+.detalle-main-image {
+  width: 100%; /* Make image responsive */
+  height: auto; /* Maintain aspect ratio */
+  max-height: 500px; /* Max height for the main image */
+  object-fit: cover; /* Cover the area, might crop */
+  border-radius: 8px; /* Slightly rounded corners */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Cuerpo (Article Content) Container */
+.detalle-cuerpo-container {
+  width: 100%;
+  max-width: 700px; /* Narrower for readability */
+  text-align: left; /* Default text alignment */
+  line-height: 1.7;
+  font-size: 1.1em;
+  margin-bottom: 40px;
+  /* For centered text as per fcbarcelona examples:
+  text-align: center;
+  */
+}
+
+.detalle-paragraph {
+  margin-bottom: 1.5em; /* Space between paragraphs */
+  /* white-space: pre-line; /* Preserve newlines from CMS (already added this, keeping it) */
+}
+
+/* Embedded Media Styling */
+.embedded-media {
+  margin: 2em 0; /* Space around media elements */
+  clear: both; /* Ensure it doesn't float next to text if other styles interfere */
+}
+
+.media-title {
+  font-size: 1.3em;
+  color: #444;
+  margin-bottom: 0.5em;
+  text-align: center; /* Titles for media often centered */
+}
+
+.embedded-media img,
+.embedded-media video {
+  max-width: 100%; /* Responsive media */
+  height: auto;
+  display: block; /* Center block elements */
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.video-responsive {
+  overflow: hidden;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  position: relative;
+  height: 0;
+  margin-bottom: 1em; /* Space if there's a caption */
+}
+
+.video-responsive iframe {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.media-caption {
+  font-size: 0.9em;
+  color: #666;
+  text-align: center;
+  margin-top: 0.5em;
+  font-style: italic;
+}
+
+.carousel-media { /* Placeholder styling */
+  padding: 20px;
+  border: 1px dashed #ccc;
+  text-align: center;
+  background-color: #f0f0f0;
+}
+
+
+/* Footer: Club Logo */
+.detalle-footer {
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #eee; /* Separator line */
+}
+
+.detalle-club-logo {
+  max-height: 80px; /* Adjust size as needed */
+  width: auto;
+}
+
+/* Overriding old styles or ensuring they don't conflict if they were too specific */
+/* Remove or adjust these based on previous .css file */
+.encabezado-container, 
+.titulo-container, 
+.image-wrapper, 
+.detalle-fecha /* If previously fixed/absolute positioned */ {
+  /* Resetting some potentially problematic old styles if they exist */
+  position: static;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  display: block; /* Or flex if needed, but the new structure is simpler */
+  /* ... any other resets ... */
+}
+
+/* If you want the main text body to be centered like some examples: */
+/*
+.detalle-cuerpo-container {
+  text-align: center;
+}
+.detalle-paragraph {
+  text-align: center; // or text-align: left; if you prefer paragraphs left-aligned within a centered block
+}
+*/
+
+/* Ensure paragraphs from `cuerpo` have line breaks preserved */
+.detalle-cuerpo .detalle-paragraph { /* If .detalle-cuerpo is still a wrapper from old HTML structure */
+    white-space: pre-line; /* Moved this from .detalle-cuerpo to .detalle-paragraph */
+}
+/* The original .detalle-cuerpo for just text is now handled by .detalle-paragraph inside .detalle-cuerpo-container */
+.detalle-cuerpo { 
+  font-size: 18px; /* Old style - might be superseded by .detalle-paragraph */
+  color: #000000; 
+  /* margin: 10px 0; */ /* Handled by .detalle-paragraph margin */
+  /* white-space: pre-line; /* Moved to .detalle-paragraph */
+}
+
+
+/* Adjustments for the previous date styling if it was fixed */
+.detalle-fecha {
+    display: block; /* Changed from fixed */
+    font-size: 14px; 
+    color: #888; 
+    width: auto; /* Changed from fit-content or fixed positioning */
+    margin: 0 0 15px 0; /* Ensure it fits in the flow of .detalle-meta */
+    text-align: center; /* Match header alignment */
+  } 
